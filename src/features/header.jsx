@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: '#ffffff',
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
+      zIndex: 100,
     },
   },
 }));
@@ -73,7 +74,6 @@ export default function Header() {
   useEffect(() => {
     const onScroll = e => {
       setScrolled(e.target.documentElement.scrollTop > 100);
-      console.log(e.target.documentElement.scrollTop);
     };
     window.addEventListener('scroll', onScroll);
 
