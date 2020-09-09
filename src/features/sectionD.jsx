@@ -23,11 +23,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 600,
   },
   navigationContainer: {
-    marginTop: 0,
-    marginLeft: '50%',
-    position: 'relative',
-    bottom: 40,
-    height:0
+    [theme.breakpoints.up('md')]: {
+      marginTop: 0,
+      marginLeft: '50%',
+      position: 'relative',
+      bottom: 40,
+      height: 0,
+    },
   },
 }));
 

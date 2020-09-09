@@ -58,7 +58,7 @@ const styles = {
     top: '0 !important',
   },
   button: {
-    margin: '0 10px',
+    // margin: '0 10px',
     position: 'relative',
     top: '30px',
     fontSize: '30px',
