@@ -8,6 +8,8 @@ import Header from '../features/header';
 import SectionA from '../features/sectionA';
 import SectionB from '../features/sectionB';
 import SectionC from '../features/sectionC';
+import SectionD from '../features/sectionD';
+import SectionE from '../features/sectionE';
 
 let theme = createMuiTheme({
   shadows: Array(25).fill('none'),
@@ -58,6 +60,10 @@ let theme = createMuiTheme({
       fontSize: 18,
       fontWeight: 400,
     },
+    subtitle1: {
+      fontSize: 18,
+      fontWeight: 600,
+    },
   },
   overrides: {
     MuiButton: {
@@ -97,6 +103,8 @@ export default function Index() {
       <SectionA />
       <SectionB />
       <SectionC />
+      <SectionD />
+      <SectionE />
     </ThemeProvider>
   );
 }

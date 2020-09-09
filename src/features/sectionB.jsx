@@ -108,14 +108,14 @@ export default function SectionB() {
           <Hidden smDown>
             <Grid container className={classes.imagesContainer}>
               {[...Array(4).keys()].map(ele => (
-                <Grid item xs={12} md={3}>
+                <Grid key={ele} item xs={12} md={3}>
                   <ImageLoader {...contentfulSectionB[`image_${ele + 1}`]} />
                 </Grid>
               ))}
             </Grid>
             <Grid container>
               {[...Array(4).keys()].map(ele => (
-                <Grid item xs={12} md={3}>
+                <Grid key={ele} item xs={12} md={3}>
                   <Typography variant="h6" paragraph className={classes.textContainer}>
                     {contentfulSectionB[`title_${ele + 1}`]}
                   </Typography>
@@ -129,7 +129,7 @@ export default function SectionB() {
           <Hidden mdUp>
             <Carousel autoPlay={false} navigationButtonColor="#EAF2FE">
               {[...Array(4).keys()].map(ele => (
-                <Grid container justify="center" alignItems="center">
+                <Grid key={ele} container justify="center" alignItems="center">
                   <Grid item className={classes.carouselItem}>
                     <div className={classes.imagesContainer}>
                       <ImageLoader {...contentfulSectionB[`image_${ele + 1}`]} />

@@ -5,6 +5,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import clsx from 'clsx';
 import { Fade, Slide, ButtonBase } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import autoBind from 'auto-bind';
@@ -311,7 +312,7 @@ class Carousel extends Component {
             // prev={this.prev}
           />
         )}
-        <div className={classes.navigationContainer}>
+        <div className={clsx(classes.navigationContainer)}>
           {!navButtonsAlwaysInvisible && (
             <div className={`${buttonWrapperCssClassValue} ${classes.prev}`}>
               <ButtonBase

@@ -99,7 +99,7 @@ export default function SectionC() {
         </div>
         <Grid container className={classes.paperContainer}>
           {[...Array(2).keys()].map(ele => (
-            <Grid key={`section_${ele}`} items xs={12} md={6}>
+            <Grid key={`section_${ele}`} item xs={12} md={6}>
               <Paper className={classes.paper}>
                 <Typography variant="h5" gutterBottom>
                   {contentfulSectionC[`title_${ele + 1}`]}
