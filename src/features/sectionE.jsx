@@ -8,6 +8,7 @@ import Carousel from '../components/carousel';
 const useStyles = makeStyles(theme => ({
   section: {
     padding: theme.spacing(5, 0),
+    backgroundColor: '#fff',
   },
   textContainer: {
     maxWidth: 450,
@@ -22,6 +23,15 @@ const useStyles = makeStyles(theme => ({
   },
   carouselItem: {
     minHeight: 200,
+  },
+  text: {
+    marginBottom: 74,
+    [theme.breakpoints.down('sm')]: {
+      marginBottom: 24,
+    },
+  },
+  title: {
+    marginBottom: 24,
   },
 }));
 
@@ -120,10 +130,10 @@ export default function SectionE() {
               <Typography variant="body2" paragraph className={classes.caption}>
                 {contentfulSectionE.caption}
               </Typography>
-              <Typography variant="h2" paragraph>
+              <Typography variant="h2" paragraph className={classes.title}>
                 {contentfulSectionE.title}
               </Typography>
-              <Typography variant="body1" paragraph>
+              <Typography variant="body1" paragraph className={classes.text}>
                 {contentfulSectionE.text}
               </Typography>
               <Typography variant="subtitle1" paragraph>
@@ -133,18 +143,20 @@ export default function SectionE() {
           </Grid>
           <Grid item xs={12} md={6}>
             <Hidden smDown>
-              <Grid container spacing={5}>
+              <Grid container spacing={3}>
                 {[...Array(4).keys()].map(ele => (
                   <Grid key={ele} item xs={6}>
-                    <div className={classes.imageWrapper}>
-                      <ImageLoader {...contentfulSectionE[`image_${ele + 1}`]} />
+                    <div style={{ maxWidth: 230 }}>
+                      <div className={classes.imageWrapper}>
+                        <ImageLoader {...contentfulSectionE[`image_${ele + 1}`]} />
+                      </div>
+                      <Typography variant="h4" paragraph>
+                        {contentfulSectionE[`title_${ele + 1}`]}
+                      </Typography>
+                      <Typography variant="body1" paragraph>
+                        {contentfulSectionE[`text_${ele + 1}`]}
+                      </Typography>
                     </div>
-                    <Typography variant="h4" paragraph>
-                      {contentfulSectionE[`title_${ele + 1}`]}
-                    </Typography>
-                    <Typography variant="body1" paragraph>
-                      {contentfulSectionE[`text_${ele + 1}`]}
-                    </Typography>
                   </Grid>
                 ))}
               </Grid>

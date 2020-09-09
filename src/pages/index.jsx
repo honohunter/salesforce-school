@@ -10,6 +10,8 @@ import SectionB from '../features/sectionB';
 import SectionC from '../features/sectionC';
 import SectionD from '../features/sectionD';
 import SectionE from '../features/sectionE';
+import SectionF from '../features/sectionF';
+import SectionG from '../features/sectionG';
 
 let theme = createMuiTheme({
   shadows: Array(25).fill('none'),
@@ -37,6 +39,10 @@ let theme = createMuiTheme({
     h2: {
       fontSize: 42,
       fontWeight: 600,
+    },
+    h3: {
+      fontSize: 20,
+      fontWeight: 500,
     },
     h4: {
       fontSize: 16,
@@ -105,6 +111,8 @@ export default function Index() {
       <SectionC />
       <SectionD />
       <SectionE />
+      <SectionF />
+      <SectionG />
     </ThemeProvider>
   );
 }

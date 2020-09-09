@@ -8,6 +8,7 @@ import Carousel from '../components/carousel';
 const useStyles = makeStyles(theme => ({
   section: {
     padding: theme.spacing(5, 0),
+    backgroundColor:'#fff'
   },
   imagesContainer: {
     marginBottom: theme.spacing(2),

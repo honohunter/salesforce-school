@@ -7,6 +7,7 @@ import CheckIcon from '../assets/icons/check.svg';
 const useStyles = makeStyles(theme => ({
   section: {
     padding: theme.spacing(5, 0),
+    backgroundColor:'#fff'
   },
   textContainer: {
     maxWidth: 600,
