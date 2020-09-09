@@ -180,7 +180,7 @@ export default function SectionG() {
             <Grid item xs={12} md={6}>
               <Grid container>
                 {[...Array(2).keys()].map(ele => (
-                  <Grid item xs={12}>
+                  <Grid key={ele} item xs={12}>
                     <div className={classes.textSection}>
                       <Typography variant="h3" paragraph>
                         {contentfulSectionG[`title_${ele + 1}`]}
@@ -197,7 +197,7 @@ export default function SectionG() {
           </Grid>
           <Grid container spacing={3} className={classes.cardContainer}>
             {[...Array(3).keys()].map(ele => (
-              <Grid item xs={12} md={4}>
+              <Grid key={ele} item xs={12} md={4}>
                 <Paper className={clsx(classes.paper, classes[`card_${ele + 1}`])}>
                   <div className={classes.imageWrapper}>
                     <ImageLoader {...contentfulSectionG[`cardImage_${ele + 1}`]} />

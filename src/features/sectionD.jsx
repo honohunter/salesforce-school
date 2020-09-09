@@ -1,12 +1,12 @@
 import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { makeStyles, Container, Grid, Typography, Hidden } from '@material-ui/core';
+import { makeStyles, Container, Grid, Typography } from '@material-ui/core';
 import ImageLoader from '../components/imageLoader';
 import Carousel from '../components/carousel';
 
 const useStyles = makeStyles(theme => ({
   section: {
-    padding: theme.spacing(4, 0),
+    padding: theme.spacing(8, 0),
     backgroundColor: '#FFFAF2',
   },
   imageWrapper: {

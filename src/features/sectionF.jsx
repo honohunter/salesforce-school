@@ -80,7 +80,7 @@ export default function SectionF() {
         <div className={classes.imageContainer}>
           <Grid container>
             {contentfulSectionF.partnersLogo.map((logo, index) => (
-              <Grid item xs>
+              <Grid key={index} item xs>
                 <div className={classes.imageWrapper}>
                   <ImageLoader {...logo} />
                 </div>
