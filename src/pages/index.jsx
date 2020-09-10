@@ -13,6 +13,7 @@ import SectionE from '../features/sectionE';
 import SectionF from '../features/sectionF';
 import SectionG from '../features/sectionG';
 import SectionH from '../features/sectionH';
+import Footer from '../features/footer';
 
 let theme = createMuiTheme({
   shadows: Array(25).fill('none'),
@@ -71,6 +72,11 @@ let theme = createMuiTheme({
       fontSize: 18,
       fontWeight: 600,
     },
+    subtitle2: {
+      fontSize: 32,
+      fontWeight: 600,
+      lineHeight: 1,
+    },
   },
   overrides: {
     MuiButton: {
@@ -96,6 +102,14 @@ let theme = createMuiTheme({
         height: 64,
       },
     },
+    MuiOutlinedInput: {
+      input: {
+        backgroundColor: '#F7F7F7',
+      },
+      notchedOutline: {
+        borderColor: '#DBDBDB',
+      },
+    },
   },
 });
 
@@ -115,6 +129,7 @@ export default function Index() {
       <SectionF />
       <SectionG />
       <SectionH />
+      <Footer />
     </ThemeProvider>
   );
 }

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles, Container, Grid, Typography, Button, Hidden } from '@material-ui/core';
 
 import ImageLoader from '../components/imageLoader';
 import DownloadIcon from '../assets/icons/download.svg';
 
+import DownloadPopup from './downloadPopup';
+
 const useStyles = makeStyles(theme => ({
   section: {
     background: 'radial-gradient(50% 50% at 50% 50%, #FFFFFF 0%, rgba(246, 249, 253, 0.9) 100%)',
     padding: theme.spacing(0, 0, 5),
-    paddingTop: 72,
   },
   leftContainer: {
     display: 'flex',
@@ -49,6 +50,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function SectionA() {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handelOpen = () => {
+    setOpen(true);
+  };
+
+  const handelClose = () => {
+    setOpen(false);
+  };
+
   const { contentfulSectionA } = useStaticQuery(graphql`
     {
       contentfulSectionA {
@@ -96,6 +107,7 @@ export default function SectionA() {
                   {contentfulSectionA.textButton_1}
                 </Button>
                 <Button
+                  onClick={handelOpen}
                   className={classes.button}
                   variant="contained"
                   color="secondary"
@@ -115,6 +127,7 @@ export default function SectionA() {
           </Grid>
         </Grid>
       </Container>
+      {/* <DownloadPopup open={open} close={handelClose} /> */}
     </section>
   );
 }

@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { makeStyles, Container, Grid, Typography, Divider, Paper, Button } from '@material-ui/core';
+import { makeStyles, Container, Grid, Typography, Button } from '@material-ui/core';
 
 import ImageLoader from '../components/imageLoader';
 import DownloadIcon from '../assets/icons/download.svg';
+
+import DownloadPopup from './downloadPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -36,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   buttonWrapper: {
     padding: theme.spacing(1),
     [theme.breakpoints.down('xs')]: {
-      maxWidth: 200,
+      maxWidth: 210,
       margin: 'auto',
     },
   },
@@ -44,6 +46,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function SectionH() {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handelOpen = () => {
+    setOpen(true);
+  };
+
+  const handelClose = () => {
+    setOpen(false);
+  };
 
   const { contentfulSectionH } = useStaticQuery(graphql`
     {
@@ -106,8 +117,15 @@ export default function SectionH() {
           </Grid>
           <Grid item xs={12} md={6}>
             <div className={classes.buttonWrapper}>
-              <Button variant="contained" color="secondary" size="large" fullWidth startIcon={<DownloadIcon />}>
-                {contentfulSectionH.textButton_1}
+              <Button
+                onClick={handelOpen}
+                variant="contained"
+                color="secondary"
+                size="large"
+                fullWidth
+                startIcon={<DownloadIcon />}
+              >
+                {contentfulSectionH.textButton_2}
               </Button>
             </div>
           </Grid>
@@ -115,13 +133,10 @@ export default function SectionH() {
       </Container>
 
       <div className={classes.imageContainer}>
-        <div>
-          <ImageLoader {...contentfulSectionH.leftImage} />
-        </div>
-        <div>
-          <ImageLoader {...contentfulSectionH.rightImage} />
-        </div>
+        <ImageLoader {...contentfulSectionH.leftImage} />
+        <ImageLoader {...contentfulSectionH.rightImage} />
       </div>
+      {/* <DownloadPopup open={open} close={handelClose} /> */}
     </section>
   );
 }

@@ -28,7 +28,8 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-swipeable": "^5.5.1",
-    "yup": "^0.29.3"
+    "yup": "^0.29.3",
+    "yup-phone": "^1.2.5"
   },
   "devDependencies": {
     "acorn": "^6.0.0",

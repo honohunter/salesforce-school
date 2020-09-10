@@ -4,14 +4,16 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles, AppBar, Toolbar, Button, Container } from '@material-ui/core';
 
 import ImageLoader from '../components/imageLoader';
+import DownloadPopup from './downloadPopup';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    position: 'absolute',
+    // position: 'absolute',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
     left: 0,
     right: 0,
+    backgroundColor: 'rgba(246, 249, 253, 1)',
   },
   toolbar: {
     padding: 0,
@@ -39,13 +41,24 @@ const useStyles = makeStyles(theme => ({
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
       zIndex: 100,
+      top: 0,
+      boxShadow: '0px 10px 25px rgba(187, 194, 196, 0.37)',
     },
   },
 }));
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const classes = useStyles();
+  const [scrolled, setScrolled] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handelOpen = () => {
+    setOpen(true);
+  };
+
+  const handelClose = () => {
+    setOpen(false);
+  };
 
   const { contentfulHeader } = useStaticQuery(graphql`
     {
@@ -81,17 +94,20 @@ export default function Header() {
   }, [scrolled, setScrolled]);
 
   return (
-    <Container className={clsx(classes.container, scrolled && classes.scrolled)}>
-      <AppBar color="transparent" position="sticky">
-        <Toolbar className={classes.toolbar}>
-          <div className={classes.logoWrapper}>
-            <ImageLoader {...contentfulHeader.logo} />
-          </div>
-          <Button variant="contained" color="default" className={classes.button}>
-            {contentfulHeader.buttonText}
-          </Button>
-        </Toolbar>
-      </AppBar>
-    </Container>
+    <section className={classes.container}>
+      <Container className={clsx(scrolled && classes.scrolled)}>
+        <AppBar color="transparent" position="sticky">
+          <Toolbar className={classes.toolbar}>
+            <div className={classes.logoWrapper}>
+              <ImageLoader {...contentfulHeader.logo} />
+            </div>
+            <Button variant="contained" color="default" className={classes.button} onClick={handelOpen}>
+              {contentfulHeader.buttonText}
+            </Button>
+          </Toolbar>
+        </AppBar>
+      </Container>
+      <DownloadPopup open={open} close={handelClose} />
+    </section>
   );
 }
