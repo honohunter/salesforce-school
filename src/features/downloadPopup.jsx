@@ -86,9 +86,10 @@ const formSchema = yup.object().shape({
   country: yup.string().required(),
 });
 
-export default function ApplyPopup({ open, close, download }) {
+export default function DownloadPopup({ open, close, download }) {
   const classes = useStyles();
   const [submitted, setSubmitted] = useState(download);
+  const [checked, setChecked] = useState(false);
 
   const { contentfulDownloadPopup } = useStaticQuery(graphql`
     {
@@ -299,7 +300,13 @@ export default function ApplyPopup({ open, close, download }) {
                         </Grid>
                         <Grid item xs={12}>
                           <div className={classes.textWrapper}>
-                            <Checkbox color="primary" />
+                            <Checkbox
+                              color="primary"
+                              checked={checked}
+                              onChange={() => {
+                                setChecked(!checked);
+                              }}
+                            />
                             <Typography variant="body2">
                               I acknowledge that by clicking &quot;Download&quot;, my data will be used in accordance
                               with the Univertop <Link href={contentfulDownloadPopup.termsOfUseLink}>Terms of Use</Link>{' '}
@@ -310,7 +317,8 @@ export default function ApplyPopup({ open, close, download }) {
                         </Grid>
                         <Grid item xs={12} md={6}>
                           <DownLoadButton
-                            disabled={!isValid || !values.email || isSubmitting}
+                            download
+                            disabled={!isValid || !values.email || isSubmitting || !checked}
                             type="submit"
                             variant="contained"
                             color="default"

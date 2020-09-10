@@ -6,7 +6,7 @@ import ImageLoader from '../components/imageLoader';
 import DownLoadButton from '../components/downloadButton';
 import DownloadIcon from '../assets/icons/download.svg';
 
-import ApplyPopup from './applyPopup';
+import DownloadPopup from './downloadPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -137,7 +137,7 @@ export default function SectionA() {
           </Grid>
         </Grid>
       </Container>
-      <ApplyPopup open={open} close={handelClose} download/>
+      <DownloadPopup open={open} close={handelClose} />
     </section>
   );
 }

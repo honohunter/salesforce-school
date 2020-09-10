@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles, Typography, Container, Grid, Paper, Button } from '@material-ui/core';
 
 import CheckIcon from '../assets/icons/check.svg';
-import ApplyPopup from './applyPopup';
+import DownloadPopup from './downloadPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -138,7 +138,7 @@ export default function SectionC() {
           ))}
         </Grid>
       </Container>
-      <ApplyPopup open={open} close={handelClose} />
+      <DownloadPopup open={open} close={handelClose} />
     </section>
   );
 }

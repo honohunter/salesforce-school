@@ -22,8 +22,8 @@ export default function DownloadButton(props) {
     <Button
       {...props}
       onClick={() => {
-        props.onClick();
-        saveAs(contentfulDownloadPopup.pdfLink.file.url, contentfulDownloadPopup.pdfLink.title);
+        props.onClick && props.onClick();
+        props.download && saveAs(contentfulDownloadPopup.pdfLink.file.url, contentfulDownloadPopup.pdfLink.title);
       }}
     />
   );

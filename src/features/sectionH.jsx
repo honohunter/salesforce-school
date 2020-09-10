@@ -6,7 +6,7 @@ import ImageLoader from '../components/imageLoader';
 import DownLoadButton from '../components/downloadButton';
 import DownloadIcon from '../assets/icons/download.svg';
 
-import ApplyPopup from './applyPopup';
+import DownloadPopup from './downloadPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -111,7 +111,15 @@ export default function SectionH() {
         <Grid container className={classes.buttonContainer}>
           <Grid item xs={12} md={6}>
             <div className={classes.buttonWrapper}>
-              <Button variant="contained" color="primary" size="large" fullWidth onClick={()=>{navigate('/#courses')}}>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                fullWidth
+                onClick={() => {
+                  navigate('/#courses');
+                }}
+              >
                 {contentfulSectionH.textButton_1}
               </Button>
             </div>
@@ -137,7 +145,7 @@ export default function SectionH() {
         <ImageLoader {...contentfulSectionH.leftImage} />
         <ImageLoader {...contentfulSectionH.rightImage} />
       </div>
-      <ApplyPopup open={open} close={handelClose} download/>
+      <DownloadPopup open={open} close={handelClose} />
     </section>
   );
 }
