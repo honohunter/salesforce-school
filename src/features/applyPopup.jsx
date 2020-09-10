@@ -19,6 +19,7 @@ import {
 import 'yup-phone';
 
 import ImageLoader from '../components/imageLoader';
+import DownLoadButton from '../components/downloadButton';
 
 import CloseIcon from '../assets/icons/close.svg';
 import DownloadIcon from '../assets/icons/downloadInverse.svg';
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
   },
   imageWrapper: {
-    maxWidth: 470,
+    maxWidth: 480,
     margin: 'auto',
   },
   content: {
@@ -85,9 +86,9 @@ const formSchema = yup.object().shape({
   country: yup.string().required(),
 });
 
-export default function ApplyPopup({ open, close }) {
+export default function ApplyPopup({ open, close, download }) {
   const classes = useStyles();
-  const [submitted, setSubmitted] = useState(false);
+  const [submitted, setSubmitted] = useState(download);
 
   const { contentfulDownloadPopup } = useStaticQuery(graphql`
     {
@@ -135,10 +136,18 @@ export default function ApplyPopup({ open, close }) {
             }
           }
         }
+        pdfLink {
+          title
+          file {
+            fileName
+            url
+            contentType
+          }
+        }
       }
     }
   `);
-  console.log(contentfulDownloadPopup.background.localFile.childImageSharp.fluid);
+
   return (
     <Dialog fullWidth maxWidth="lg" open={open}>
       <DialogContent
@@ -176,7 +185,7 @@ export default function ApplyPopup({ open, close }) {
                   initialValues={{
                     firstName: '',
                     lastName: '',
-                    email: '',
+                    email: false,
                     phoneNumber: '',
                     country: '',
                   }}
@@ -185,7 +194,7 @@ export default function ApplyPopup({ open, close }) {
                     setSubmitted(true);
                   }}
                 >
-                  {({ handleChange, errors, touched, isValid, handleBlur }) => (
+                  {({ handleChange, errors, touched, isValid, handleBlur, values, isSubmitting }) => (
                     <Form className={classes.from}>
                       <Grid container>
                         <Grid item xs={12} md={6}>
@@ -293,14 +302,15 @@ export default function ApplyPopup({ open, close }) {
                             <Checkbox color="primary" />
                             <Typography variant="body2">
                               I acknowledge that by clicking &quot;Download&quot;, my data will be used in accordance
-                              with the Univertop Terms of Use and Privacy Policy, including relevant opt out provisions
-                              therein.
+                              with the Univertop <Link href={contentfulDownloadPopup.termsOfUseLink}>Terms of Use</Link>{' '}
+                              and <Link href={contentfulDownloadPopup.privacyPolicyLink}>Privacy Policy</Link>,
+                              including relevant opt out provisions therein.
                             </Typography>
                           </div>
                         </Grid>
                         <Grid item xs={12} md={6}>
-                          <Button
-                            disabled={!isValid}
+                          <DownLoadButton
+                            disabled={!isValid || !values.email || isSubmitting}
                             type="submit"
                             variant="contained"
                             color="default"
@@ -309,7 +319,7 @@ export default function ApplyPopup({ open, close }) {
                             startIcon={<DownloadIcon />}
                           >
                             {contentfulDownloadPopup.textButton}
-                          </Button>
+                          </DownLoadButton>
                         </Grid>
                       </Grid>
                     </Form>
@@ -325,7 +335,11 @@ export default function ApplyPopup({ open, close }) {
               <br /> Syllabus is downloading...
             </Typography>
             <Typography variant="body1" align="center">
-              Click <Link>here</Link> if nothing happend.
+              Click{' '}
+              <Link href={contentfulDownloadPopup.pdfLink.file.url} target="_blank" download>
+                here
+              </Link>{' '}
+              if nothing happend.
             </Typography>
           </div>
         )}

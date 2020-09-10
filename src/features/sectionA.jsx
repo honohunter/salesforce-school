@@ -3,6 +3,7 @@ import { useStaticQuery, graphql, navigate } from 'gatsby';
 import { makeStyles, Container, Grid, Typography, Button, Hidden } from '@material-ui/core';
 
 import ImageLoader from '../components/imageLoader';
+import DownLoadButton from '../components/downloadButton';
 import DownloadIcon from '../assets/icons/download.svg';
 
 import ApplyPopup from './applyPopup';
@@ -115,7 +116,7 @@ export default function SectionA() {
                 >
                   {contentfulSectionA.textButton_1}
                 </Button>
-                <Button
+                <DownLoadButton
                   onClick={handelOpen}
                   className={classes.button}
                   variant="contained"
@@ -125,7 +126,7 @@ export default function SectionA() {
                   fullWidth
                 >
                   {contentfulSectionA.textButton_2}
-                </Button>
+                </DownLoadButton>
               </Grid>
             </div>
           </Grid>
@@ -136,7 +137,7 @@ export default function SectionA() {
           </Grid>
         </Grid>
       </Container>
-      {/* <ApplyPopup open={open} close={handelClose} /> */}
+      <ApplyPopup open={open} close={handelClose} download/>
     </section>
   );
 }

@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles, Typography, Container, Grid, Paper, Button } from '@material-ui/core';
 
 import CheckIcon from '../assets/icons/check.svg';
+import ApplyPopup from './applyPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -63,6 +64,15 @@ const useStyles = makeStyles(theme => ({
 
 export default function SectionC() {
   const classes = useStyles();
+  const [open, setOpen] = useState(false);
+
+  const handelOpen = () => {
+    setOpen(true);
+  };
+
+  const handelClose = () => {
+    setOpen(false);
+  };
 
   const { contentfulSectionC } = useStaticQuery(graphql`
     {
@@ -120,7 +130,7 @@ export default function SectionC() {
                     <Typography variant="h4">{contentfulSectionC[`checkboxLabel_${ele + 1}_b`]}</Typography>
                   </div>
                 </div>
-                <Button variant="contained" color="secondary" className={classes.button}>
+                <Button variant="contained" color="secondary" className={classes.button} onClick={handelOpen}>
                   {contentfulSectionC[`textButton_${ele + 1}`]}
                 </Button>
               </Paper>
@@ -128,6 +138,7 @@ export default function SectionC() {
           ))}
         </Grid>
       </Container>
+      <ApplyPopup open={open} close={handelClose} />
     </section>
   );
 }
