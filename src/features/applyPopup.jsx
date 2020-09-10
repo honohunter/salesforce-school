@@ -85,7 +85,7 @@ const formSchema = yup.object().shape({
   country: yup.string().required(),
 });
 
-export default function DownloadPopup({ open, close }) {
+export default function ApplyPopup({ open, close }) {
   const classes = useStyles();
   const [submitted, setSubmitted] = useState(false);
 
@@ -96,6 +96,7 @@ export default function DownloadPopup({ open, close }) {
         privacyPolicyLink
         termsOfUseLink
         downloadLink
+        textButton
         image {
           file {
             url
@@ -128,7 +129,7 @@ export default function DownloadPopup({ open, close }) {
           }
           localFile {
             childImageSharp {
-              fixed(width: 1200) {
+              fixed(width: 1200, height: 700) {
                 ...GatsbyImageSharpFixed
               }
             }
@@ -305,9 +306,9 @@ export default function DownloadPopup({ open, close }) {
                             color="default"
                             className={classes.button}
                             fullWidth
-                            startIcon={<DownloadIcon style={{ fill: '#fff' }} />}
+                            startIcon={<DownloadIcon />}
                           >
-                            Download Syllabus
+                            {contentfulDownloadPopup.textButton}
                           </Button>
                         </Grid>
                       </Grid>

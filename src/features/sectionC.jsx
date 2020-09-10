@@ -7,7 +7,7 @@ import CheckIcon from '../assets/icons/check.svg';
 const useStyles = makeStyles(theme => ({
   section: {
     padding: theme.spacing(5, 0),
-    backgroundColor:'#fff'
+    backgroundColor: '#fff',
   },
   textContainer: {
     maxWidth: 600,
@@ -85,7 +85,7 @@ export default function SectionC() {
   `);
 
   return (
-    <section className={classes.section}>
+    <section className={classes.section} id="courses">
       <Container>
         <div className={classes.textContainer}>
           <Typography variant="body2" align="center" gutterBottom className={classes.caption}>

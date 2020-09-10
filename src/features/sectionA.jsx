@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, navigate } from 'gatsby';
 import { makeStyles, Container, Grid, Typography, Button, Hidden } from '@material-ui/core';
 
 import ImageLoader from '../components/imageLoader';
 import DownloadIcon from '../assets/icons/download.svg';
 
-import DownloadPopup from './downloadPopup';
+import ApplyPopup from './applyPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -103,7 +103,16 @@ export default function SectionA() {
                 {contentfulSectionA.text}
               </Typography>
               <Grid container justify="space-between" className={classes.buttonWrapper}>
-                <Button className={classes.button} variant="contained" color="primary" size="large" fullWidth>
+                <Button
+                  className={classes.button}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  fullWidth
+                  onClick={() => {
+                    navigate('/#courses');
+                  }}
+                >
                   {contentfulSectionA.textButton_1}
                 </Button>
                 <Button
@@ -127,7 +136,7 @@ export default function SectionA() {
           </Grid>
         </Grid>
       </Container>
-      {/* <DownloadPopup open={open} close={handelClose} /> */}
+      {/* <ApplyPopup open={open} close={handelClose} /> */}
     </section>
   );
 }
