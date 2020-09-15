@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Formik, Form } from 'formik';
-import { saveAs } from 'file-saver';
 
 import {
   makeStyles,
@@ -15,17 +14,19 @@ import {
   Button,
   Hidden,
   Link,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
 } from '@material-ui/core';
 
 import 'yup-phone';
 
 import yup from '../helpers/helpers';
-import { downloadAction } from '../api/sendinblue';
+import { applyAction } from '../api/sendinblue';
 
 import ImageLoader from '../components/imageLoader';
 
 import CloseIcon from '../assets/icons/close.svg';
-import DownloadIcon from '../assets/icons/downloadInverse.svg';
 
 const useStyles = makeStyles(theme => ({
   buttonWrapper: {
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
   },
   content: {
-    padding: theme.spacing(4, 0, 8),
+    padding: theme.spacing(3.5, 0),
   },
   inputLabel: {
     fontWeight: 500,
@@ -53,6 +54,7 @@ const useStyles = makeStyles(theme => ({
   },
   from: {
     maxWidth: 550,
+    marginLeft: 'auto',
   },
   textWrapper: {
     display: 'flex',
@@ -64,7 +66,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   background: {
-    height: 700,
+    height: 750,
     backgroundPositionX: 'center',
     backgroundRepeat: 'no-repeat',
     [theme.breakpoints.down('sm')]: {
@@ -79,6 +81,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     height: '90%',
   },
+  caption: {
+    color: theme.palette.primary.main,
+    fontWeight: 600,
+  },
 }));
 
 const formSchema = yup.object().shape({
@@ -87,16 +93,18 @@ const formSchema = yup.object().shape({
   email: yup.string().email().required(),
   phoneNumber: yup.string().trim().phoneNumber('Invalid phone number'),
   country: yup.string().required(),
+  linkedIn: yup.string().url().required(),
 });
 
-export default function DownloadPopup({ close }) {
+export default function ApplyPopup({ close, schedule }) {
   const classes = useStyles();
   const [submitted, setSubmitted] = useState(false);
   const [checked, setChecked] = useState(false);
 
-  const { contentfulDownloadPopup } = useStaticQuery(graphql`
+  const { contentfulApplyPopup } = useStaticQuery(graphql`
     {
-      contentfulDownloadPopup {
+      contentfulApplyPopup {
+        caption
         title
         privacyPolicyLink
         termsOfUseLink
@@ -139,22 +147,13 @@ export default function DownloadPopup({ close }) {
             }
           }
         }
-        pdfLink {
-          title
-          file {
-            fileName
-            url
-            contentType
-          }
-        }
       }
     }
   `);
 
   const handelSubmit = values => {
-    downloadAction(values)
+    applyAction(values)
       .then(() => {
-        saveAs(contentfulDownloadPopup.pdfLink.file.url, contentfulDownloadPopup.pdfLink.title);
         setSubmitted(true);
       })
       .catch(error => {
@@ -169,7 +168,7 @@ export default function DownloadPopup({ close }) {
         style={
           submitted
             ? {
-                backgroundImage: `url(${contentfulDownloadPopup.background.localFile.childImageSharp.fixed.src})`,
+                backgroundImage: `url(${contentfulApplyPopup.background.localFile.childImageSharp.fixed.src})`,
               }
             : {}
         }
@@ -183,18 +182,13 @@ export default function DownloadPopup({ close }) {
 
         {!submitted ? (
           <>
+            <Typography variant="body2" align="center" paragraph className={classes.caption}>
+              Choose a full-time or part-time program
+            </Typography>
             <Typography variant="subtitle2" align="center" className={classes.title}>
-              {contentfulDownloadPopup.title}
+              {contentfulApplyPopup.title}
             </Typography>
             <Grid container className={classes.content}>
-              <Hidden smDown>
-                <Grid item xs={12} md={6}>
-                  <div className={classes.imageWrapper}>
-                    <ImageLoader {...contentfulDownloadPopup.image} />
-                  </div>
-                </Grid>
-              </Hidden>
-
               <Grid item xs={12} md={6}>
                 <Formik
                   initialValues={{
@@ -203,6 +197,8 @@ export default function DownloadPopup({ close }) {
                     email: false,
                     phoneNumber: '',
                     country: '',
+                    linkedIn: '',
+                    schedule: schedule || 'Part-Time',
                   }}
                   validationSchema={formSchema}
                   onSubmit={handelSubmit}
@@ -210,6 +206,34 @@ export default function DownloadPopup({ close }) {
                   {({ handleChange, errors, touched, isValid, handleBlur, values, isSubmitting }) => (
                     <Form className={classes.from}>
                       <Grid container>
+                        <Grid item xs={12}>
+                          <div className={classes.input}>
+                            <Typography variant="body2" gutterBottom className={classes.inputLabel}>
+                              Choose your Schedule
+                              <span style={{ color: 'red' }}>*</span>
+                            </Typography>
+                            <RadioGroup
+                              aria-label="gender"
+                              name="schedule"
+                              value={values.schedule}
+                              onChange={handleChange}
+                              style={{ flexDirection: 'row' }}
+                            >
+                              <FormControlLabel
+                                disabled={Boolean(schedule)}
+                                value="Part-Time"
+                                control={<Radio color="primary" />}
+                                label="Part-Time"
+                              />
+                              <FormControlLabel
+                                disabled={Boolean(schedule)}
+                                value="Full-Time"
+                                control={<Radio color="primary" />}
+                                label="Full-Time"
+                              />
+                            </RadioGroup>
+                          </div>
+                        </Grid>
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
@@ -290,7 +314,8 @@ export default function DownloadPopup({ close }) {
                             />
                           </div>
                         </Grid>
-                        <Grid item xs={12} md={12}>
+
+                        <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
                               In which country do you live now?
@@ -310,6 +335,26 @@ export default function DownloadPopup({ close }) {
                             />
                           </div>
                         </Grid>
+                        <Grid item xs={12} md={6}>
+                          <div className={classes.input}>
+                            <Typography variant="body2" gutterBottom className={classes.inputLabel}>
+                              Your LinkedIn profile
+                              <span style={{ color: 'red' }}>*</span>
+                            </Typography>
+                            <TextField
+                              inputProps={{ placeholder: 'Type here....' }}
+                              variant="outlined"
+                              margin="none"
+                              fullWidth
+                              id="linkedIn"
+                              name="linkedIn"
+                              onBlur={handleBlur}
+                              onChange={handleChange}
+                              error={errors.linkedIn && touched.linkedIn}
+                              //   helperText={errors.linkedIn && touched.linkedIn ? errors.linkedIn : null}
+                            />
+                          </div>
+                        </Grid>
                         <Grid item xs={12}>
                           <div className={classes.textWrapper}>
                             <Checkbox
@@ -321,9 +366,9 @@ export default function DownloadPopup({ close }) {
                             />
                             <Typography variant="body2">
                               I acknowledge that by clicking &quot;Download&quot;, my data will be used in accordance
-                              with the Univertop <Link href={contentfulDownloadPopup.termsOfUseLink}>Terms of Use</Link>{' '}
-                              and <Link href={contentfulDownloadPopup.privacyPolicyLink}>Privacy Policy</Link>,
-                              including relevant opt out provisions therein.
+                              with the Univertop <Link href={contentfulApplyPopup.termsOfUseLink}>Terms of Use</Link>{' '}
+                              and <Link href={contentfulApplyPopup.privacyPolicyLink}>Privacy Policy</Link>, including
+                              relevant opt out provisions therein.
                             </Typography>
                           </div>
                         </Grid>
@@ -335,9 +380,8 @@ export default function DownloadPopup({ close }) {
                             color="default"
                             className={classes.button}
                             fullWidth
-                            startIcon={<DownloadIcon />}
                           >
-                            {contentfulDownloadPopup.textButton}
+                            {contentfulApplyPopup.textButton}
                           </Button>
                         </Grid>
                       </Grid>
@@ -345,6 +389,13 @@ export default function DownloadPopup({ close }) {
                   )}
                 </Formik>
               </Grid>
+              <Hidden smDown>
+                <Grid item xs={12} md={6}>
+                  <div className={classes.imageWrapper}>
+                    <ImageLoader {...contentfulApplyPopup.image} />
+                  </div>
+                </Grid>
+              </Hidden>
             </Grid>
           </>
         ) : (
@@ -352,13 +403,6 @@ export default function DownloadPopup({ close }) {
             <Typography variant="subtitle2" align="center" paragraph>
               Thanks!
               <br /> Syllabus is downloading...
-            </Typography>
-            <Typography variant="body1" align="center">
-              Click{' '}
-              <Link href={contentfulDownloadPopup.pdfLink.file.url} target="_blank" download>
-                here
-              </Link>{' '}
-              if nothing happend.
             </Typography>
           </div>
         )}

@@ -3,7 +3,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles, Typography, Container, Grid, Paper, Button } from '@material-ui/core';
 
 import CheckIcon from '../assets/icons/check.svg';
-import DownloadPopup from './downloadPopup';
+import ApplyPopup from './applyPopup';
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -62,12 +62,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+const values = { 0: 'Part-Time', 1: 'Full-Time' };
+
 export default function SectionC() {
   const classes = useStyles();
   const [open, setOpen] = useState(false);
 
-  const handelOpen = () => {
-    setOpen(true);
+  const handelOpen = event => {
+    setOpen(values[event.currentTarget.id]);
   };
 
   const handelClose = () => {
@@ -130,7 +132,7 @@ export default function SectionC() {
                     <Typography variant="h4">{contentfulSectionC[`checkboxLabel_${ele + 1}_b`]}</Typography>
                   </div>
                 </div>
-                <Button variant="contained" color="secondary" className={classes.button} onClick={handelOpen}>
+                <Button id={ele} variant="contained" color="secondary" className={classes.button} onClick={handelOpen}>
                   {contentfulSectionC[`textButton_${ele + 1}`]}
                 </Button>
               </Paper>
@@ -138,7 +140,7 @@ export default function SectionC() {
           ))}
         </Grid>
       </Container>
-      <DownloadPopup open={open} close={handelClose} />
+      {open && <ApplyPopup close={handelClose} schedule={open} />}
     </section>
   );
 }

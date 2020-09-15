@@ -4,7 +4,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { makeStyles, AppBar, Toolbar, Button, Container } from '@material-ui/core';
 
 import ImageLoader from '../components/imageLoader';
-import DownloadPopup from './downloadPopup';
+import ApplyPopup from './applyPopup';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -107,7 +107,7 @@ export default function Header() {
           </Toolbar>
         </AppBar>
       </Container>
-      <DownloadPopup open={open} close={handelClose} />
+      {open && <ApplyPopup close={handelClose} />}
     </section>
   );
 }
