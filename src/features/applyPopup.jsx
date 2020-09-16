@@ -373,8 +373,9 @@ export default function ApplyPopup({ close, schedule }) {
                           </div>
                         </Grid>
                         <Grid item xs={12} md={6}>
+                          {console.log(isValid || !values.email || isSubmitting || !checked)}
                           <Button
-                            disabled={!isValid || !values.email || isSubmitting || !checked}
+                            disabled={!isValid || isSubmitting || !checked}
                             type="submit"
                             variant="contained"
                             color="default"
@@ -401,8 +402,7 @@ export default function ApplyPopup({ close, schedule }) {
         ) : (
           <div className={classes.afterDownload}>
             <Typography variant="subtitle2" align="center" paragraph>
-              Thanks!
-              <br /> Syllabus is downloading...
+              Thank you for your application! <br /> Someone will contact you soon.
             </Typography>
           </div>
         )}

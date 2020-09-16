@@ -329,7 +329,7 @@ export default function DownloadPopup({ close }) {
                         </Grid>
                         <Grid item xs={12} md={6}>
                           <Button
-                            disabled={!isValid || !values.email || isSubmitting || !checked}
+                            disabled={!isValid || isSubmitting || !checked}
                             type="submit"
                             variant="contained"
                             color="default"
