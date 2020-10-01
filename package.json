@@ -9,6 +9,7 @@
     "auto-bind": "^4.0.0",
     "axios": "^0.20.0",
     "clsx": "^1.1.1",
+    "contentful-export": "^7.10.7",
     "dotenv": "^8.2.0",
     "file-saver": "^2.0.2",
     "fontsource-jost": "^3.0.5",
