@@ -4,9 +4,12 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: ``,
-    description: ``,
+    title: `Become a Sales Expert and Launch Your Remote Career`,
+    titleTemplate: ``,
+    description: `Invest 3 months and launch your remote career with a dedicated mentor and partner company. Learn in-demand skills and get remote experience while studying. Plus, this is the first program where you'll get the opportunity to apply yourself and earn money before the course is finished.`,
     author: ``,
+    image: `/src/assets/images/meta.png`,
+    url: `univertop.com`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
