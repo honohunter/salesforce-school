@@ -119,7 +119,7 @@ export default function Index() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <SEO title="Univertop" />
+      <SEO />
       <Header />
       <SectionA />
       <SectionB />
