@@ -8,8 +8,8 @@ module.exports = {
     titleTemplate: ``,
     description: `Invest 3 months and launch your remote career with a dedicated mentor and partner company. Learn in-demand skills and get remote experience while studying. Plus, this is the first program where you'll get the opportunity to apply yourself and earn money before the course is finished.`,
     author: ``,
-    image: `/src/assets/images/meta.png`,
-    url: `univertop.com`,
+    image: `/images/meta.png`,
+    url: ``,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -31,7 +31,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#ffffff`,
         display: `minimal-ui`,
-        // icon: `src/assets/images/favicon.png`, // This path is relative to the root of the site.
+        icon: `src/assets/icons/favicon.png`, // This path is relative to the root of the site.
       },
     },
     `gatsby-plugin-material-ui`,
