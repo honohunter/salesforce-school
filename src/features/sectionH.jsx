@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
     margin: 'auto',
   },
   buttonContainer: {
-    maxWidth: 450,
+    maxWidth: 500,
     margin: 'auto',
     padding: theme.spacing(2, 0),
   },

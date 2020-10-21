@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 360,
   },
   buttonWrapper: {
-    maxWidth: 420,
+    maxWidth: 450,
     [theme.breakpoints.down('sm')]: {
       '& > *:not(:last-child)': {
         marginBottom: theme.spacing(2),
@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     [theme.breakpoints.up('md')]: {
-      width: 200,
+      // width: 200,
       '& > button:not(:last-child)': {
         marginBottom: theme.spacing(2),
       },
@@ -108,7 +108,6 @@ export default function SectionA() {
                   variant="contained"
                   color="primary"
                   size="large"
-                  fullWidth
                   onClick={() => {
                     navigate('/#courses');
                   }}
@@ -122,7 +121,6 @@ export default function SectionA() {
                   color="secondary"
                   size="large"
                   startIcon={<DownloadIcon />}
-                  fullWidth
                 >
                   {contentfulSectionA.textButton_2}
                 </Button>
