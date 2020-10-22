@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { Formik, Form } from 'formik';
+import { BLOCKS, INLINES } from '@contentful/rich-text-types';
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 import {
   makeStyles,
@@ -96,6 +98,13 @@ const formSchema = yup.object().shape({
   linkedIn: yup.string().url().required(),
 });
 
+const options = {
+  renderNode: {
+    [BLOCKS.PARAGRAPH]: (node, children) => <Typography variant="body2">{children}</Typography>,
+    [INLINES.HYPERLINK]: (node, children) => <Link href={node.data.uri}>{children}</Link>,
+  },
+};
+
 export default function ApplyPopup({ close, schedule }) {
   const classes = useStyles();
   const [submitted, setSubmitted] = useState(false);
@@ -106,9 +115,20 @@ export default function ApplyPopup({ close, schedule }) {
       contentfulApplyPopup {
         caption
         title
-        privacyPolicyLink
-        termsOfUseLink
         textButton
+        label_1
+        label_2
+        label_3
+        label_4
+        label_5
+        label_6
+        label_7
+        label_8
+        label_9
+        inputPlaceholder
+        privacyStatement {
+          json
+        }
         image {
           file {
             url
@@ -209,7 +229,7 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              Choose your Schedule
+                              {contentfulApplyPopup.label_1}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <RadioGroup
@@ -223,13 +243,13 @@ export default function ApplyPopup({ close, schedule }) {
                                 disabled={Boolean(schedule)}
                                 value="Part-Time"
                                 control={<Radio color="primary" />}
-                                label="Part-Time"
+                                label={contentfulApplyPopup.label_2}
                               />
                               <FormControlLabel
                                 disabled={Boolean(schedule)}
                                 value="Full-Time"
                                 control={<Radio color="primary" />}
-                                label="Full-Time"
+                                label={contentfulApplyPopup.label_3}
                               />
                             </RadioGroup>
                           </div>
@@ -237,11 +257,11 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              First name
+                              {contentfulApplyPopup.label_4}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <TextField
-                              inputProps={{ placeholder: 'Type here....' }}
+                              inputProps={{ placeholder: contentfulApplyPopup.inputPlaceholder }}
                               variant="outlined"
                               margin="none"
                               fullWidth
@@ -257,11 +277,11 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              Last name
+                              {contentfulApplyPopup.label_5}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <TextField
-                              inputProps={{ placeholder: 'Type here....' }}
+                              inputProps={{ placeholder: contentfulApplyPopup.inputPlaceholder }}
                               variant="outlined"
                               margin="none"
                               fullWidth
@@ -277,11 +297,11 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              Email
+                              {contentfulApplyPopup.label_6}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <TextField
-                              inputProps={{ placeholder: 'Type here....' }}
+                              inputProps={{ placeholder: contentfulApplyPopup.inputPlaceholder }}
                               variant="outlined"
                               margin="none"
                               fullWidth
@@ -297,11 +317,11 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              Phone number
+                              {contentfulApplyPopup.label_7}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <TextField
-                              inputProps={{ placeholder: 'Type here....' }}
+                              inputProps={{ placeholder: contentfulApplyPopup.inputPlaceholder }}
                               variant="outlined"
                               margin="none"
                               fullWidth
@@ -318,11 +338,11 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              In which country do you live now?
+                              {contentfulApplyPopup.label_8}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <TextField
-                              inputProps={{ placeholder: 'Type here....' }}
+                              inputProps={{ placeholder: contentfulApplyPopup.inputPlaceholder }}
                               variant="outlined"
                               margin="none"
                               fullWidth
@@ -338,11 +358,11 @@ export default function ApplyPopup({ close, schedule }) {
                         <Grid item xs={12} md={6}>
                           <div className={classes.input}>
                             <Typography variant="body2" gutterBottom className={classes.inputLabel}>
-                              Your LinkedIn profile
+                              {contentfulApplyPopup.label_9}
                               <span style={{ color: 'red' }}>*</span>
                             </Typography>
                             <TextField
-                              inputProps={{ placeholder: 'Type here....' }}
+                              inputProps={{ placeholder: contentfulApplyPopup.inputPlaceholder }}
                               variant="outlined"
                               margin="none"
                               fullWidth
@@ -364,12 +384,8 @@ export default function ApplyPopup({ close, schedule }) {
                                 setChecked(!checked);
                               }}
                             />
-                            <Typography variant="body2">
-                              I acknowledge that by clicking &quot;Download&quot;, my data will be used in accordance
-                              with the Univertop <Link href={contentfulApplyPopup.termsOfUseLink}>Terms of Use</Link>{' '}
-                              and <Link href={contentfulApplyPopup.privacyPolicyLink}>Privacy Policy</Link>, including
-                              relevant opt out provisions therein.
-                            </Typography>
+
+                            {documentToReactComponents(contentfulApplyPopup.privacyStatement.json, options)}
                           </div>
                         </Grid>
                         <Grid item xs={12} md={6}>

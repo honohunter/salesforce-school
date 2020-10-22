@@ -39,8 +39,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   button: {
+    width: '100%',
     [theme.breakpoints.up('md')]: {
-      // width: 200,
+      width: 'auto',
       '& > button:not(:last-child)': {
         marginBottom: theme.spacing(2),
       },
