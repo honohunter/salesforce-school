@@ -4,9 +4,9 @@ require('dotenv').config({
 
 module.exports = {
   siteMetadata: {
-    title: `Become a Sales Expert and Launch Your Remote Career`,
+    title: `Décrochez le job de vos rêves`,
     titleTemplate: ``,
-    description: `Invest 3 months and launch your remote career with a dedicated mentor and partner company. Learn in-demand skills and get remote experience while studying. Plus, this is the first program where you'll get the opportunity to apply yourself and earn money before the course is finished.`,
+    description: `Un programme qui vous aide à trouver un contrat de travail en France et l'international, grâce au mentoring experts reconnus et à un réseau d’entreprises partenaires. Éligible CPF et Pôle Emploi.`,
     author: ``,
     image: `/images/meta.png`,
     url: ``,
